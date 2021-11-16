@@ -5,6 +5,17 @@ import {customElement, property} from 'lit/decorators.js';
 @customElement('lit-apka')
 export class LitApp extends LitElement {
 
+    constructor() {
+        super();
+        this._load();
+    }
+
+    private async _load() {
+       const cc = await import('./dynamicos')
+       const zz = new cc.Dynamicos();
+       console.log('zz', zz.hehe())
+    }
+
     public render() {
         return html`hehehe`;
     }
