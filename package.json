@@ -1,0 +1,16 @@
+{
+  "name": "lit-apka",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "lit": "file:../lit2/packages/lit",
+    "@lit/reactive-element": "file:../lit2/packages/reactive-element",
+    "lit-element": "file:../lit2/packages/lit-element",
+    "lit-html": "file:../lit2/packages/lit-html"
+  },
+  "devDependencies": {
+    "google-closure-compiler": "^20211107.0.0",
+    "rollup": "^2.60.0"
+  }
+}
