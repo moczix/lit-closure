@@ -9,6 +9,6 @@
     "rootDir": ".",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "outDir": "./tsc-out",
+    "outDir": "./tsc-out2",
   }
 }

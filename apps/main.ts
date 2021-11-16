@@ -1,4 +1,5 @@
 
+
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
@@ -11,9 +12,9 @@ export class LitApp extends LitElement {
     }
 
     private async _load() {
-       const cc = await import('./dynamicos')
-       const zz = new cc.Dynamicos();
-       console.log('zz', zz.hehe())
+       //const cc = await import('./dynamicos')
+       //const zz = new cc.Dynamicos();
+       //console.log('zz', zz.hehe())
     }
 
     public render() {
@@ -22,3 +23,13 @@ export class LitApp extends LitElement {
 }
 
 
+
+
+/*
+async function  main() {
+    const cc = await import('./dynamicos')
+    const zz = new cc.Dynamicos();
+    console.log('zz', zz.hehe())
+}
+main();
+*/
