@@ -29,54 +29,12 @@
    fatalWarnings?: boolean;
  }
  
- function usage() {
-   console.error(`usage: tsickle [tsickle options] -- [tsc options]
- example:
-   tsickle --externs=foo/externs.js -- -p src --noImplicitAny
- tsickle flags are:
-   --externs=PATH        save generated Closure externs.js to PATH
-   --typed               [experimental] attempt to provide Closure types instead of {?}
-   --fatalWarnings       whether warnings should be fatal, and cause tsickle to return a non-zero exit code
- `);
- }
- 
- /**
-  * Parses the command-line arguments, extracting the tsickle settings and
-  * the arguments to pass on to tsc.
-  */
+
  function loadSettingsFromArgs(args: string[]): {settings: Settings, tscArgs: string[]} {
-   const settings: Settings = {};
+   const settings: Settings = {
+     isTyped: true
+   };
    const parsedArgs = minimist(args);
-   settings.isTyped = true;
-   for (const flag of Object.keys(parsedArgs)) {
-     switch (flag) {
-       case 'h':
-       case 'help':
-         usage();
-         process.exit(0);
-         break;
-       case 'externs':
-         settings.externsPath = parsedArgs[flag];
-         break;
-       case 'typed':
-         settings.isTyped = true;
-         break;
-       case 'verbose':
-         settings.verbose = true;
-         break;
-       case 'fatalWarnings':
-         settings.fatalWarnings = true;
-         break;
-       case '_':
-         // This is part of the minimist API, and holds args after the '--'.
-         break;
-       default:
-         console.error(`unknown flag '--${flag}'`);
-         usage();
-         process.exit(1);
-     }
-   }
-   // Arguments after the '--' arg are arguments to tsc.
    const tscArgs = parsedArgs['_'];
    return {settings, tscArgs};
  }
@@ -206,17 +164,6 @@
      console.error(ts.formatDiagnostics(config.errors, ts.createCompilerHost(config.options)));
      return 1;
    }
- 
-   /*
-   if (config.options.module !== ts.ModuleKind.CommonJS) {
-     // This is not an upstream TypeScript diagnostic, therefore it does not go
-     // through the diagnostics array mechanism.
-     console.error(
-         'tsickle converts TypeScript modules to Closure modules via CommonJS internally. ' +
-         'Set tsconfig.js "module": "commonjs"');
-     return 1;
-   }
-   */
    const fixedFileNames = fixFileNames(config.fileNames, config.options.project)
    // Run tsickle+TSC to convert inputs to Closure JS files.
    const result = toClosureJS(
