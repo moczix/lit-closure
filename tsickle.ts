@@ -148,7 +148,6 @@
      writeFile: ts.WriteFileCallback): tsickle.EmitResult {
    // Use absolute paths to determine what files to process since files may be imported using
    // relative or absolute paths
-   fileNames = ['apps/main.ts'];
    const absoluteFileNames = fileNames.map(i => path.resolve(i));
  
    const compilerHost = ts.createCompilerHost(options);
@@ -187,6 +186,18 @@
    }
    return tsickle.emit(program, transformerHost, writeFile);
  }
+
+ function fixFileNames(fileNames: string[], projectName?: string): string[] {
+   return fileNames.map((fileName: string) => {
+     if (!projectName){
+       return fileName;
+     }
+     if (fileName.startsWith(`${projectName}/${projectName}`)) {
+      return fileName.replace(`${projectName}/${projectName}`, projectName)
+     }
+     return fileName
+   })
+ }
  
  function main(args: string[]): number {
    const {settings, tscArgs} = loadSettingsFromArgs(args);
@@ -206,10 +217,10 @@
      return 1;
    }
    */
- 
+   const fixedFileNames = fixFileNames(config.fileNames, config.options.project)
    // Run tsickle+TSC to convert inputs to Closure JS files.
    const result = toClosureJS(
-       config.options, config.fileNames, settings, (filePath: string, contents: string) => {
+       config.options, fixedFileNames, settings, (filePath: string, contents: string) => {
          fs.mkdirSync(path.dirname(filePath), {recursive: true});
          fs.writeFileSync(filePath, contents, {encoding: 'utf-8'});
        });

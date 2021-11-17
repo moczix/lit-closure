@@ -1,4 +1,4 @@
 {
   "extends": "./../tsconfig.json",
-  "files": ["./main.ts", "./dynamicos.ts"]
+  "files": ["main.ts"]
 }

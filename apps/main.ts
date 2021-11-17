@@ -12,9 +12,9 @@ export class LitApp extends LitElement {
     }
 
     private async _load() {
-       //const cc = await import('./dynamicos')
-       //const zz = new cc.Dynamicos();
-       //console.log('zz', zz.hehe())
+       const cc = await import('./dynamicos')
+       const zz = new cc.Dynamicos();
+       console.log('zz', zz.hehe())
     }
 
     public render() {
