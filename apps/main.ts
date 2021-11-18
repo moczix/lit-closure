@@ -3,6 +3,7 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import './child/child';
+import './child2/child2';
 
 @customElement('lit-apka')
 export class LitApp extends LitElement {
@@ -24,7 +25,14 @@ export class LitApp extends LitElement {
     }
 
     public render() {
-        return html`rororo34555 <lit-apka-child></lit-apka-child>`;
+        return html`rororo345556 
+            <br>
+            <lit-apka-child></lit-apka-child>
+            <br>
+            <lit-apka-child2></lit-apka-child2>
+
+
+        `;
     }
 }
 
