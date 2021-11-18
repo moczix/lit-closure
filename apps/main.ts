@@ -12,6 +12,11 @@ export class LitApp extends LitElement {
         this._load();
     }
 
+    connectedCallback() {
+        super.connectedCallback()
+        console.dir(this)
+      }
+
     private async _load() {
        const cc = await import('./dynamicos')
        const zz = new cc.Dynamicos();

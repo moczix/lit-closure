@@ -10,6 +10,15 @@ export class LitApkaChild extends LitElement {
         super();
     }
 
+    createRenderRoot() {
+      return this;
+    }
+
+    connectedCallback() {
+      super.connectedCallback()
+      console.dir(this)
+    }
+
 
     public render() {
         return html`heheheszunie`;
