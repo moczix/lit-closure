@@ -1,7 +1,6 @@
 import { compiler as ClosureCompiler} from 'google-closure-compiler';
 import { join, resolve } from 'path';
 import { exec } from 'child_process';
-import { readFileSync } from 'fs';
 
 type ChunksData = {
   chunk: string[],
@@ -24,34 +23,16 @@ function getChunksData(entryPoint: string): Promise<ChunksData> {
   })
 }
 
-function normalizeChunksData(chunksData: ChunksData): ChunksData {
-  const rootDir = join(__dirname, '../');
-  return {
-    js: chunksData.js.map((path: string) => path.replace(rootDir, '../')),
-    chunk: chunksData.chunk
-  };
-}
 
-function normalizeChunksData2(): ChunksData {
-  const chunks: ChunksData = JSON.parse(readFileSync('chunks.json', {encoding: 'utf-8'}))
-  console.log('chunks', chunks)
-  return {
-    js: chunks.js.map(js => resolve(join('../', js))),
-    chunk: chunks.chunk
-  }
-}
-
-/** */
 
 export function closureCompileProd(isProduction: boolean) {
   return async (done: (error?: Error | null) => void) => {
     const entryJs: string = resolve(join('../', 'tsc-out/apps/main.js'));
-    //const data = normalizeChunksData(await getChunksData(entryJs));
-    const data = normalizeChunksData2();
+    const chunksDataFromPlugin: ChunksData = await getChunksData(entryJs);
     const compiler = new ClosureCompiler({
       entry_point: entryJs,
-      js: data.js,
-      chunk: data.chunk,
+      js: chunksDataFromPlugin.js,
+      chunk: chunksDataFromPlugin.chunk,
       language_in: 'ECMASCRIPT_2020',
       language_out: 'ECMASCRIPT_2020',
       compilation_level: isProduction ? 'ADVANCED' : 'SIMPLE_OPTIMIZATIONS',
