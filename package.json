@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rm -rf built && rm -rf dist && yarn rollup -c rollup.config.js",
     "closure": "java -jar node_modules/google-closure-compiler-java/compiler.jar --flagfile closure.conf",
-    "tsickle": "ts-node --project tsconfig.tools.json tsickle.ts -- -p apps"
+    "tsickle": "ts-node --project tsconfig.tools.json tsickle.ts -- -p apps",
+    "serve": "node --loader ts-node/esm ./tools/gulpfile.ts dev"
   },
   "dependencies": {
     "@lit/reactive-element": "file:../lit2/packages/reactive-element",
@@ -15,12 +16,16 @@
     "lit-html": "file:../lit2/packages/lit-html"
   },
   "devDependencies": {
+    "@types/browser-sync": "^2.26.3",
     "@types/google-closure-compiler": "^0.0.19",
     "@types/gulp": "^4.0.9",
+    "@types/rimraf": "^3.0.2",
+    "browser-sync": "^2.27.7",
     "closure-calculate-chunks": "^3.0.2",
     "google-closure-compiler": "^20211107.0.0",
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
     "tsickle": "^0.43.0",
     "typescript": "^4.4.4"

@@ -58,7 +58,7 @@ export function closureCompileProd(isProduction: boolean) {
       rewrite_polyfills: false,
       module_resolution: 'NODE',
       package_json_entry_names: 'es2020,module',
-      chunk_output_path_prefix: resolve(join('../', 'dist/')) + '/',
+      chunk_output_path_prefix: resolve(join('../', 'dist/js/')) + '/',
       chunk_output_type: 'ES_MODULES'
     });
     
