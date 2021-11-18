@@ -18,9 +18,9 @@
     "node_modules/@lit/reactive-element/decorators/query-async.js",
     "node_modules/@lit/reactive-element/decorators/query-assigned-nodes.js",
     "node_modules/lit/decorators.js",
+    "tsc-out/apps/child/child.js",
     "tsc-out/apps/main.js",
-    "tsc-out/apps/dynamicos.js",
-    "tsc-out/apps/child/child.js"
+    "tsc-out/apps/dynamicos.js"
   ],
   "chunk": [
     "main:20",

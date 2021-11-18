@@ -34,6 +34,7 @@ function normalizeChunksData(chunksData: ChunksData): ChunksData {
 
 function normalizeChunksData2(): ChunksData {
   const chunks: ChunksData = JSON.parse(readFileSync('chunks.json', {encoding: 'utf-8'}))
+  console.log('chunks', chunks)
   return {
     js: chunks.js.map(js => resolve(join('../', js))),
     chunk: chunks.chunk

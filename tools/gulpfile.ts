@@ -9,10 +9,11 @@ gulp.task('prod', gulp.series(clearTsickle, compileTsickle, clearDist, closureCo
 
 gulp.task('dev', () => {
   const browserSync = create();
-  gulp.watch('../apps/**/*.ts', {ignoreInitial: false}, gulp.series(clearTsickle, compileTsickle, clearDistDev, closureCompileProd(false), copyIndex));
+  gulp.watch(['../apps/**/*.ts', 'chunks.json'], {ignoreInitial: false}, gulp.series(clearTsickle, compileTsickle, clearDistDev, closureCompileProd(false), copyIndex));
   gulp.watch('../dist/*.html').on('change', browserSync.reload)
   gulp.watch('../dist/**/*.js').on('change', browserSync.reload)
   browserSync.init({
+    open: false,
     server: '../dist'
   });
 })
