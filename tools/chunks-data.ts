@@ -18,10 +18,11 @@ export const chunksJs = [
   'node_modules/@lit/reactive-element/decorators/query-assigned-nodes.js',
   'node_modules/lit/decorators.js',
   'tsc-out/apps/main.js',
-  'tsc-out/apps/dynamicos.js' 
+  'tsc-out/apps/dynamicos.js',
+  'tsc-out/apps/child/child.js'
 ]
 
 export const chunksChunk = [
-  'main:19',
+  'main:20',
   'dynamicos:1:main'
 ]

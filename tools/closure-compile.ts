@@ -1,7 +1,7 @@
 import { compiler as ClosureCompiler} from 'google-closure-compiler';
 import { join, resolve } from 'path';
 import { exec } from 'child_process';
-import { chunksChunk, chunksJs } from './chunks-data';
+import { readFileSync } from 'fs';
 
 type ChunksData = {
   chunk: string[],
@@ -33,9 +33,10 @@ function normalizeChunksData(chunksData: ChunksData): ChunksData {
 }
 
 function normalizeChunksData2(): ChunksData {
+  const chunks: ChunksData = JSON.parse(readFileSync('chunks.json', {encoding: 'utf-8'}))
   return {
-    js: chunksJs.map(js => resolve(join('../', js))),
-    chunk: chunksChunk
+    js: chunks.js.map(js => resolve(join('../', js))),
+    chunk: chunks.chunk
   }
 }
 
@@ -59,7 +60,11 @@ export function closureCompileProd(isProduction: boolean) {
       module_resolution: 'NODE',
       package_json_entry_names: 'es2020,module',
       chunk_output_path_prefix: resolve(join('../', 'dist/js/')) + '/',
-      chunk_output_type: 'ES_MODULES'
+      chunk_output_type: 'ES_MODULES',
+      ...(isProduction ? {} : {
+        debug: true,
+        formatting: 'PRETTY_PRINT'
+      })
     });
     
     compiler.run((exitCode, stdOut, stdErr) => {
