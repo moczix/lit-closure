@@ -9,7 +9,7 @@ gulp.task('prod', gulp.series(clearTsickle, compileTsickle, clearDist, closureCo
 
 gulp.task('dev', () => {
   const browserSync = create();
-  gulp.watch(['../apps/**/*.ts', '../packages/**/*.ts'], {ignoreInitial: false}, gulp.series(clearTsickle, compileTsickle, clearDistDev, closureCompileProd(false), copyIndex));
+  gulp.watch(['../apps/**/*.ts', '../packages/**/*.ts'], {ignoreInitial: false}, gulp.series(clearTsickle, compileTsickle, clearDistDev, closureCompileProd(true), copyIndex));
   gulp.watch('../dist/*.html').on('change', browserSync.reload)
   gulp.watch('../dist/**/*.js').on('change', browserSync.reload)
   browserSync.init({

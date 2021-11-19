@@ -4,11 +4,11 @@ import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import './child/child';
 import './child2/child2';
-import { InheritElement } from '@app/shared/injector/inherit-element';
+import { InheritElement, RootInheritElement } from '@app/shared/injector/inherit-element';
 
 
 @customElement('lit-apka')
-export class LitApp extends InheritElement {
+export class LitApp extends RootInheritElement {
 
     constructor() {
         super();
