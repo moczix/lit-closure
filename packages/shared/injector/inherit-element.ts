@@ -2,13 +2,11 @@ import { LitElement } from "lit";
 import { Injected } from "./injected";
 import { Injector } from './injector';
 
-export interface InheritanceInit {
-  injectedInit: () => void;
+export abstract class InheritanceInit {
+  public inheritanceInit(): void {}
 }
 
-
-
-export abstract class InheritElement extends LitElement  {
+export abstract class InheritElement extends LitElement {
 
   protected _injector: Injector = new Injector();
   constructor(){
