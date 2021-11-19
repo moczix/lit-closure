@@ -4,20 +4,16 @@ import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import './child/child';
 import './child2/child2';
+import { InheritElement } from '@app/shared/injector/inherit-element';
 
 
 @customElement('lit-apka')
-export class LitApp extends LitElement {
+export class LitApp extends InheritElement {
 
     constructor() {
         super();
         this._load();
     }
-
-    connectedCallback() {
-        super.connectedCallback()
-        console.dir(this)
-      }
 
     private async _load() {
        const cc = await import('./dynamicos')

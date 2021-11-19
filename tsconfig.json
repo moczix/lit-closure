@@ -21,6 +21,12 @@
     "paths": {
       "@app/ui/components/*": [
         "packages/ui/components/*"
+      ],
+      "@app/shared/injector/*": [
+        "packages/shared/injector/*"
+      ],
+      "@app/shared/services/*": [
+        "packages/shared/services/*"
       ]
     }
   },
