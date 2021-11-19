@@ -17,7 +17,12 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "tsc-out"
+    "outDir": "tsc-out",
+    "paths": {
+      "@app/ui/components/*": [
+        "packages/ui/components/*"
+      ]
+    }
   },
   "ts-node": {
     "compilerOptions": {

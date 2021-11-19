@@ -2,9 +2,9 @@
 
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import '@app/ui/components/something/something'
-@customElement('lit-apka-child2')
-export class LitApkaChild extends LitElement {
+
+@customElement('lit-something')
+export class SomethingComponent extends LitElement {
 
     constructor() {
         super();
@@ -21,6 +21,6 @@ export class LitApkaChild extends LitElement {
 
 
     public render() {
-        return html`rokorororor <br> <lit-something></lit-something>`;
+        return html`somethingComponent`;
     }
 }

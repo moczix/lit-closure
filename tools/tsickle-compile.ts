@@ -119,8 +119,7 @@
        return !filesToProcess.has(path.resolve(fileName));
      },
      shouldIgnoreWarningsForPath: (fileName: string) => !settings.fatalWarnings,
-     pathToModuleName: (context, fileName) =>
-         tsickle.pathToModuleName(rootModulePath, context, fileName),
+     pathToModuleName: (context, fileName) => tsickle.pathToModuleName(rootModulePath, context, fileName),
      fileNameToModuleId: (fileName) => path.relative(rootModulePath, fileName),
      es5Mode: false,
      googmodule: false,
@@ -157,10 +156,30 @@
      return fileName
    })
  }
+
+ function resolveTsConfigPath(compilerOptions: ts.CompilerOptions, fileContent: string, filePath: string): string {
+  if (filePath.endsWith('js.map')) {
+    return fileContent;
+  }
+  let newContent = fileContent;
+  if (compilerOptions.paths) {
+    const keys: string[] = Object.keys(compilerOptions.paths);
+    
+    for (const key of keys) {
+      const keyWithoutStar: string = key.endsWith('*') ? key.replace('*', '') : key;
+      const pathToReplace: string = compilerOptions.paths[key][0].endsWith('*') ? compilerOptions.paths[key][0].replace('*', '') : compilerOptions.paths[key][0];
+      const pathAbsoluteToReplace: string = path.join(compilerOptions.outDir ?? '', pathToReplace);
+      const searchRegExp = new RegExp(keyWithoutStar, 'g');
+      const replaceWith = pathAbsoluteToReplace;
+      newContent = newContent.replace(searchRegExp, replaceWith)
+    }
+  }
+  return newContent;
+ }
  
 export function compileTsickle(done: (error?: Error | null) => void) {
    const {settings, tscArgs} = loadSettingsFromArgs();
-   const config = loadTscConfig(tscArgs);
+   const config = loadTscConfig(tscArgs)
    if (config.errors.length) {
      const error = ts.formatDiagnostics(config.errors, ts.createCompilerHost(config.options));
      console.error(error);
@@ -171,7 +190,7 @@ export function compileTsickle(done: (error?: Error | null) => void) {
    const result = toClosureJS(
        config.options, fixedFileNames, settings, (filePath: string, contents: string) => {
          fs.mkdirSync(path.dirname(filePath), {recursive: true});
-         fs.writeFileSync(filePath, contents, {encoding: 'utf-8'});
+         fs.writeFileSync(filePath, resolveTsConfigPath(config.options, contents, filePath), {encoding: 'utf-8'});
        });
    if (result.diagnostics.length) {
      const error = ts.formatDiagnostics(result.diagnostics, ts.createCompilerHost(config.options));
