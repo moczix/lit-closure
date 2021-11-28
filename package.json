@@ -4,9 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf built && rm -rf dist && yarn rollup -c rollup.config.js",
-    "closure": "java -jar node_modules/google-closure-compiler-java/compiler.jar --flagfile closure.conf",
-    "tsickle": "ts-node --project tsconfig.tools.json tsickle.ts -- -p apps",
     "serve": "gulp -f tools/gulpfile.ts dev",
     "build-prod": "gulp -f tools/gulpfile.ts prod",
     "postinstall": "node scripts/postinstall.js"
